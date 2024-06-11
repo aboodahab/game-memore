@@ -1,0 +1,32 @@
+body{ 
+    background-color: black;
+    height: 100%;
+    color: white;
+    display: flex;
+    margin: 0;
+    text-transform: capitalize;
+    gap: 120px;
+    align-items: center;
+justify-content: center;
+ }
+ .o{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 250px;
+    font-size: 32px;
+background-color: orange;
+ }
+ button{ 
+    font-size: 32px;
+    width: 140px;
+background-color: greenyellow;
+ }
+ a{ 
+   text-decoration: none;
+color: red
+;
+width: 140px;
+ } 
+ 
