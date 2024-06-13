@@ -36,6 +36,7 @@ const getIndexOfImg = (array) => {
   btn.style.display = "none";
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", () => {
+      images[i].style = "  transform: rotateY(180deg);";
       if (images[i].clicked === true) {
         console.log("oooooooooooooooooooooooooooossssssssssssssssss");
         return;
