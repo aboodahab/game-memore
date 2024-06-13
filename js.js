@@ -36,18 +36,24 @@ const getIndexOfImg = (array) => {
   btn.style.display = "none";
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", () => {
-      images[i].style = "  transform: rotateY(180deg);";
-      if (images[i].clicked === true) {
-        console.log("oooooooooooooooooooooooooooossssssssssssssssss");
+      images[i].parentElement.style.transform = " rotateY(180deg)";
+      images[i].parentElement.parentElement.style.transform =
+        " rotateY(180deg)";
+
+      if (checkIfClicked(images[i]) === "clicked") {
+        console.log("sleee");
         return;
       }
+      console.log("s");
 
       if (num === 1) {
         n++;
         num = 0;
         if (last !== array[i]) {
           console.log("ll", last, array[i]);
-          images[i].src = `${array[i]}.jpg`;
+          setTimeout(() => {
+            images[i].src = `${array[i]}.jpg`;
+          }, 300);
           setTimeout(() => {
             img.src = "blue.jpg";
             images[i].src = "blue.jpg";
@@ -57,6 +63,10 @@ const getIndexOfImg = (array) => {
           return;
         }
         if (last === array[i]) {
+          if (checkIfClicked(images[i]) === "clicked") {
+            console.log("sleee");
+            return;
+          }
           if (n % 2 !== 0) {
             scoore1++;
             score1.textContent = scoore1;
@@ -74,10 +84,13 @@ const getIndexOfImg = (array) => {
           return;
         }
       }
+
       num++;
       last = array[i];
       img = images[i];
-      images[i].src = `${array[i]}.jpg`;
+      setTimeout(() => {
+        images[i].src = `${array[i]}.jpg`;
+      }, 280);
     });
   }
 };
@@ -87,3 +100,9 @@ btn.addEventListener("click", () => {
   getIndexOfImg(array);
   console.log(array);
 });
+function checkIfClicked(element) {
+  if (element.clicked === true) {
+    return "clicked";
+  }
+  return "unclicked";
+}

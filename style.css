@@ -16,6 +16,7 @@ justify-content: center;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 img {
+height: px;
  width: 150px;
 }
 .flip-card-inner {
@@ -25,9 +26,7 @@ img {
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
