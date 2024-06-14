@@ -23,8 +23,11 @@ const getIndexOfImg = (array) => {
   btn.style.display = "none";
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", () => {
-      if (images[i].clicked === true) {
-        console.log("oooooooooooooooooooooooooooossssssssssssssssss");
+      images[i].parentElement.style.transform = " rotateY(180deg)";
+      images[i].parentElement.parentElement.style.transform =
+        " rotateY(180deg)";
+      if (checkIfClicked(images[i]) === "clicked") {
+        console.log("sleee");
         return;
       }
 
@@ -33,7 +36,10 @@ const getIndexOfImg = (array) => {
         num = 0;
         if (last !== array[i]) {
           console.log("ll", last, array[i]);
-          images[i].src = `${array[i]}.jpg`;
+          setTimeout(() => {
+            images[i].src = `${array[i]}.jpg`;
+          }, 290);
+
           setTimeout(() => {
             img.src = "blue.jpg";
             images[i].src = "blue.jpg";
@@ -63,7 +69,9 @@ const getIndexOfImg = (array) => {
       num++;
       last = array[i];
       img = images[i];
-      images[i].src = `${array[i]}.jpg`;
+      setTimeout(() => {
+        images[i].src = `${array[i]}.jpg`;
+      }, 290);
     });
   }
 };
@@ -73,3 +81,9 @@ btn.addEventListener("click", () => {
   getIndexOfImg(array);
   console.log(array);
 });
+function checkIfClicked(element) {
+  if (element.clicked === true) {
+    return "clicked";
+  }
+  return "unclicked";
+}
