@@ -2,7 +2,8 @@ let images = document.querySelectorAll("img");
 let score1 = document.querySelector(".score1");
 let score2 = document.querySelector(".score2");
 let btn = document.querySelector(".btn");
-
+let winningDiv = document.querySelector(".divOfWinners");
+let paragraph = document.querySelector(".paragraphOfWinners");
 btn.style.display = "flex";
 const scramble = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -51,6 +52,7 @@ const getIndexOfImg = (array) => {
       console.log("s");
 
       if (num === 1) {
+        winningDiv.style.display = "flex";
         n++;
         num = 0;
         if (last !== array[i]) {
@@ -60,6 +62,7 @@ const getIndexOfImg = (array) => {
           }, 290);
 
           setTimeout(() => {
+            winningDiv.style.display = "none";
             img.src = "blue.jpg";
             images[i].src = "blue.jpg";
           }, 1200);
@@ -69,22 +72,26 @@ const getIndexOfImg = (array) => {
         }
         if (last === array[i]) {
           if (n % 2 !== 0) {
+            winningDiv.style.display = "none";
             scoore1++;
             score1.textContent = scoore1;
           }
           if (n % 2 === 0) {
+            winningDiv.style.display = "none";
+          
             scoore2++;
             score2.textContent = scoore2;
           }
-          console.log("oooo");
+
           images[i].clicked = true;
-          console.log(images[i].clicked);
+
           images[i].src = `${array[i]}.jpg`;
           last = null;
-          images[i] = "k";
+
           return;
         }
       }
+      winningDiv.style.display = "none";
       num++;
       last = array[i];
       img = images[i];

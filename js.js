@@ -71,10 +71,14 @@ const getIndexOfImg = (array) => {
             return;
           }
           if (n % 2 !== 0) {
+            winningDiv.style.display = "none";
+
             scoore1++;
             score1.textContent = scoore1;
           }
           if (n % 2 === 0) {
+            winningDiv.style.display = "none";
+
             scoore2++;
             score2.textContent = scoore2;
           }
