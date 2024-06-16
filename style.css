@@ -53,6 +53,13 @@ img {
     z-index: 2202;
     position:absolute;
   display: none;
-color: brown;
+color: orange;
 
       }
+.ResetGameBtn{ 
+        color: orange;
+        background-color:  rgb(38, 206, 136) ;
+        font-size: 32px;
+        display: none;
+       border-radius: 4px;
+          }

@@ -1,10 +1,3 @@
-let images = document.querySelectorAll("img");
-let score1 = document.querySelector(".score1");
-let score2 = document.querySelector(".score2");
-let btn = document.querySelector(".btn");
-let winningDiv = document.querySelector(".divOfWinners");
-let paragraph = document.querySelector(".paragraphOfWinners");
-btn.style.display = "flex";
 const scramble = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -33,11 +26,18 @@ let last = "";
 let img = 0;
 let scoore1 = 0;
 let scoore2 = 0;
-
+let nw = 0;
+const btn = allData().btn;
 const getIndexOfImg = (array) => {
-  btn.style.display = "none";
+  const btn = allData().btn;
+  const winningDiv = allData().winningDiv;
+  const score1 = allData().score1;
+  const score2 = allData().score2;
+  const images = allData().images;
+  btn.style.display = "flex";
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", () => {
+      btn.style.display = "none";
       images[i].parentElement.style.transform = " rotateY(180deg)";
       images[i].parentElement.parentElement.style.transform =
         " rotateY(180deg)";
@@ -66,10 +66,6 @@ const getIndexOfImg = (array) => {
           return;
         }
         if (last === array[i]) {
-          if (checkIfClicked(images[i]) === "clicked") {
-            console.log("sleee");
-            return;
-          }
           if (n % 2 !== 0) {
             winningDiv.style.display = "none";
 
@@ -82,6 +78,8 @@ const getIndexOfImg = (array) => {
             scoore2++;
             score2.textContent = scoore2;
           }
+          nw++;
+          checkIfWin(scoore1, scoore2);
           console.log("oooo");
           last.clicked = true;
           images[i].clicked = true;
@@ -110,6 +108,7 @@ const getIndexOfImg = (array) => {
 btn.addEventListener("click", () => {
   scramble(array);
   getIndexOfImg(array);
+  btn.style.display = "none";
 });
 function checkIfClicked(element) {
   if (element.clicked === true) {
@@ -117,3 +116,64 @@ function checkIfClicked(element) {
   }
   return "unclicked";
 }
+function checkIfWin(firstScore, secondScore) {
+  console.log(nw);
+  const winningDiv = allData().winningDiv;
+  const paragraph = allData().paragraph;
+  const btn = allData().resetGameBtn;
+  const images = allData().images;
+  if (nw === 6) {
+    if (firstScore > secondScore) {
+      winningDiv.style.display = "flex";
+      console.log("winnnnnnnnnnnnn");
+      paragraph.textContent = "first player wins !!";
+      btn.textContent = "reset Game";
+      btn.style.display = "flex";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+    if (firstScore < secondScore) {
+      winningDiv.style.display = "flex";
+      console.log("winnnnnnnnnnnnn");
+      paragraph.textContent = "second player wins!!";
+      btn.textContent = "reset Game";
+      btn.style.display = "flex";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+    if (firstScore === secondScore) {
+      winningDiv.style.display = "flex";
+      paragraph.textContent = "i don't know";
+      btn.textContent = "reset Game";
+      btn.style.display = "flex";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+  }
+}
+
+function checkIfClicked(element) {
+  if (element.clicked === true) {
+    return "clicked";
+  }
+  return "unclicked";
+}
+function allData() {
+  let images = document.querySelectorAll("img");
+  let score1 = document.querySelector(".score1");
+  let score2 = document.querySelector(".score2");
+  let btn = document.querySelector(".btn");
+  let winningDiv = document.querySelector(".divOfWinners");
+  let paragraph = document.querySelector(".paragraphOfWinners");
+  let resetGameBtn = document.querySelector(".ResetGameBtn");
+  return { images, score1, score2, btn, winningDiv, paragraph, resetGameBtn };
+}
+const resetBtn = allData().resetGameBtn;
+function resetTheGame() {
+  window.location = "http://127.0.0.1:5500/game-memore/js.html";
+  resetBtn.style.display = "none";
+}
+resetBtn.addEventListener("click", resetTheGame);

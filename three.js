@@ -1,10 +1,3 @@
-let images = document.querySelectorAll("img");
-let score1 = document.querySelector(".score1");
-let score2 = document.querySelector(".score2");
-let btn = document.querySelector(".btn");
-let winningDiv = document.querySelector(".divOfWinners");
-let paragraph = document.querySelector(".paragraphOfWinners");
-btn.style.display = "flex";
 const scramble = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -20,8 +13,15 @@ let last = "";
 let img = 0;
 let scoore1 = 0;
 let scoore2 = 0;
+let nw = 0;
+const btn = allData().btn;
 const getIndexOfImg = (array) => {
-  btn.style.display = "none";
+  const btn = allData().btn;
+  const winningDiv = allData().winningDiv;
+  const score1 = allData().score1;
+  const score2 = allData().score2;
+  const images = allData().images;
+  btn.style.display = "flex";
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", () => {
       images[i].parentElement.style.transform = " rotateY(180deg)";
@@ -63,9 +63,10 @@ const getIndexOfImg = (array) => {
             scoore2++;
             score2.textContent = scoore2;
           }
-          console.log("oooo");
+          nw++;
+          checkIfWin(scoore1, scoore2);
           images[i].clicked = true;
-          console.log(images[i].clicked);
+
           images[i].src = `${array[i]}.jpg`;
           last = null;
           images[i] = "k";
@@ -86,6 +87,7 @@ btn.addEventListener("click", () => {
   scramble(array);
   getIndexOfImg(array);
   console.log(array);
+  btn.style.display = "none";
 });
 function checkIfClicked(element) {
   if (element.clicked === true) {
@@ -93,3 +95,61 @@ function checkIfClicked(element) {
   }
   return "unclicked";
 }
+
+function checkIfWin(firstScore, secondScore) {
+  console.log(nw);
+  const winningDiv = allData().winningDiv;
+  const paragraph = allData().paragraph;
+  const btn = allData().resetGameBtn;
+  const images = allData().images;
+  if (nw === 3) {
+    if (firstScore > secondScore) {
+      winningDiv.style.display = "flex";
+      btn.style.display = "flex";
+      btn.textContent = "reset Game";
+      console.log("2u59275927597597925olssllllllllllllltalalalala");
+      paragraph.textContent = "first wins !!";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+    if (firstScore < secondScore) {
+      console.log("winnnnnnnnnnnnn");
+      winningDiv.style.display = "flex";
+      btn.style.display = "flex";
+      btn.textContent = "reset Game";
+      console.log("2u59275927597597925olssllllllllllllltalalalala");
+      paragraph.textContent = "second wins !!";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+    if (firstScore === secondScore) {
+      winningDiv.style.display = "flex";
+      btn.style.display = "flex";
+      btn.textContent = "reset Game";
+      console.log("2u59275927597597925olssllllllllllllltalalalala");
+      paragraph.textContent = "i don't know";
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+    }
+  }
+}
+
+function allData() {
+  let images = document.querySelectorAll("img");
+  let score1 = document.querySelector(".score1");
+  let score2 = document.querySelector(".score2");
+  let btn = document.querySelector(".btn");
+  let winningDiv = document.querySelector(".divOfWinners");
+  let paragraph = document.querySelector(".paragraphOfWinners");
+  let resetGameBtn = document.querySelector(".ResetGameBtn");
+  return { images, score1, score2, btn, winningDiv, paragraph, resetGameBtn };
+}
+const resetBtn = allData().resetGameBtn;
+function resetTheGame() {
+  window.location = "http://127.0.0.1:5500/game-memore/three.html";
+  resetBtn.style.display = "none";
+}
+resetBtn.addEventListener("click", resetTheGame);
