@@ -31,6 +31,7 @@ let img = 0;
 let scoore1 = 0;
 let scoore2 = 0;
 let nw = 0;
+let l = false;
 const btn = allData().btn;
 const getIndexOfImg = (array) => {
   const btn = allData().btn;
@@ -44,11 +45,14 @@ const getIndexOfImg = (array) => {
       images[i].parentElement.style.transform = " rotateY(180deg)";
       images[i].parentElement.parentElement.style.transform =
         " rotateY(180deg)";
-
+      if (l.className === images[i].className) {
+        return;
+      }
       if (checkIfClicked(images[i]) === "clicked") {
         console.log("sleee");
         return;
       }
+      l = images[i];
       console.log("s");
 
       if (num === 1) {
@@ -84,11 +88,16 @@ const getIndexOfImg = (array) => {
           }
 
           images[i].clicked = true;
+          setTimeout(() => {
+            images[i].src = `${array[i]}.jpg`;
+            setTimeout(() => {
+              nw++;
+              checkIfWin(scoore1, scoore2);
+            }, 50);
+          }, 290);
 
-          images[i].src = `${array[i]}.jpg`;
           last = null;
-          nw++;
-          checkIfWin(scoore1, scoore2);
+
           return;
         }
       }
@@ -120,36 +129,37 @@ function checkIfWin(firstScore, secondScore) {
   const winningDiv = allData().winningDiv;
   const paragraph = allData().paragraph;
   const btn = allData().resetGameBtn;
+  const images = allData().images;
 
   if (nw === 8) {
     if (firstScore > secondScore) {
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
       winningDiv.style.display = "flex";
       console.log("winnnnnnnnnnnnn");
       btn.style.display = "flex";
       btn.textContent = "reset Game";
       paragraph.textContent = "first player wins !!";
+    }
+    if (firstScore < secondScore) {
       for (let i = 0; i < images.length; i++) {
         images[i].src = "blue.jpg";
       }
-    }
-    if (firstScore < secondScore) {
       winningDiv.style.display = "flex";
       btn.textContent = "reset Game";
       btn.style.display = "flex";
       paragraph.textContent = "second player wins!!";
+    }
+    if (firstScore === secondScore) {
       for (let i = 0; i < images.length; i++) {
         images[i].src = "blue.jpg";
       }
-    }
-    if (firstScore === secondScore) {
       winningDiv.style.display = "flex";
       btn.style.display = "flex";
       btn.textContent = "reset Game";
       console.log("2u59275927597597925olssllllllllllllltalalalala");
       paragraph.textContent = "i don't know";
-      for (let i = 0; i < images.length; i++) {
-        images[i].src = "blue.jpg";
-      }
     }
   }
 }

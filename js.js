@@ -27,6 +27,7 @@ let img = 0;
 let scoore1 = 0;
 let scoore2 = 0;
 let nw = 0;
+let l = false;
 const btn = allData().btn;
 const getIndexOfImg = (array) => {
   const btn = allData().btn;
@@ -42,17 +43,20 @@ const getIndexOfImg = (array) => {
       images[i].parentElement.parentElement.style.transform =
         " rotateY(180deg)";
 
-      if (checkIfClicked(images[i]) === "clicked") {
+      if (l.className === images[i].className) {
         return;
       }
 
+      if (checkIfClicked(images[i]) === "clicked") {
+        return;
+      }
+      l = images[i];
       if (num === 1) {
         winningDiv.style.display = "flex";
         n++;
         num = 0;
         if (last !== array[i]) {
           setTimeout(() => {
-            console.log("sseeee2");
             images[i].src = `${array[i]}.jpg`;
           }, 290);
 
@@ -78,15 +82,16 @@ const getIndexOfImg = (array) => {
             scoore2++;
             score2.textContent = scoore2;
           }
-          nw++;
-          checkIfWin(scoore1, scoore2);
-          console.log("oooo");
+
           last.clicked = true;
           images[i].clicked = true;
-          console.log(images[i].clicked);
+
           setTimeout(() => {
-            " rotateY(180deg)";
             images[i].src = `${array[i]}.jpg`;
+            setTimeout(() => {
+              nw++;
+              checkIfWin(scoore1, scoore2);
+            }, 50);
           }, 290);
 
           last = null;
@@ -98,7 +103,9 @@ const getIndexOfImg = (array) => {
       num++;
       last = array[i];
       img = images[i];
+
       setTimeout(() => {
+        console.log("youho");
         images[i].src = `${array[i]}.jpg`;
       }, 290);
     });
@@ -117,40 +124,37 @@ function checkIfClicked(element) {
   return "unclicked";
 }
 function checkIfWin(firstScore, secondScore) {
-  console.log(nw);
   const winningDiv = allData().winningDiv;
   const paragraph = allData().paragraph;
   const btn = allData().resetGameBtn;
   const images = allData().images;
   if (nw === 6) {
     if (firstScore > secondScore) {
-      winningDiv.style.display = "flex";
-      console.log("winnnnnnnnnnnnn");
-      paragraph.textContent = "first player wins !!";
-      btn.textContent = "reset Game";
-      btn.style.display = "flex";
       for (let i = 0; i < images.length; i++) {
         images[i].src = "blue.jpg";
       }
-    }
-    if (firstScore < secondScore) {
-      winningDiv.style.display = "flex";
-      console.log("winnnnnnnnnnnnn");
-      paragraph.textContent = "second player wins!!";
-      btn.textContent = "reset Game";
-      btn.style.display = "flex";
-      for (let i = 0; i < images.length; i++) {
-        images[i].src = "blue.jpg";
-      }
-    }
-    if (firstScore === secondScore) {
       winningDiv.style.display = "flex";
       paragraph.textContent = "i don't know";
       btn.textContent = "reset Game";
       btn.style.display = "flex";
+    }
+    if (firstScore < secondScore) {
       for (let i = 0; i < images.length; i++) {
         images[i].src = "blue.jpg";
       }
+      winningDiv.style.display = "flex";
+      paragraph.textContent = "i don't know";
+      btn.textContent = "reset Game";
+      btn.style.display = "flex";
+    }
+    if (firstScore === secondScore) {
+      for (let i = 0; i < images.length; i++) {
+        images[i].src = "blue.jpg";
+      }
+      winningDiv.style.display = "flex";
+      paragraph.textContent = "i don't know";
+      btn.textContent = "reset Game";
+      btn.style.display = "flex";
     }
   }
 }

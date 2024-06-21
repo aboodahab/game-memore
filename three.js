@@ -14,6 +14,7 @@ let img = 0;
 let scoore1 = 0;
 let scoore2 = 0;
 let nw = 0;
+let sss = "";
 const btn = allData().btn;
 const getIndexOfImg = (array) => {
   const btn = allData().btn;
@@ -27,11 +28,14 @@ const getIndexOfImg = (array) => {
       images[i].parentElement.style.transform = " rotateY(180deg)";
       images[i].parentElement.parentElement.style.transform =
         " rotateY(180deg)";
+      if (sss.className === images[i].className) {
+        return;
+      }
       if (checkIfClicked(images[i]) === "clicked") {
         console.log("sleee");
         return;
       }
-
+      sss = images[i];
       if (num === 1) {
         winningDiv.style.display = "flex";
         n++;
@@ -63,11 +67,16 @@ const getIndexOfImg = (array) => {
             scoore2++;
             score2.textContent = scoore2;
           }
-          nw++;
-          checkIfWin(scoore1, scoore2);
-          images[i].clicked = true;
 
-          images[i].src = `${array[i]}.jpg`;
+          images[i].clicked = true;
+          setTimeout(() => {
+            images[i].src = `${array[i]}.jpg`;
+            setTimeout(() => {
+              nw++;
+              checkIfWin(scoore1, scoore2);
+            }, 50);
+          }, 290);
+
           last = null;
           images[i] = "k";
           return;
